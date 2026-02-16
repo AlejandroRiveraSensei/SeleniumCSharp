@@ -16,14 +16,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update=".Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>.runsettings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
     <None Update=".runsettings">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>.Designer.cs</LastGenOutput>

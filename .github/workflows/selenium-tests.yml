@@ -2,10 +2,11 @@ name: Ejecutar Pruebas E2E (Selenium + C#)
 
 # Las pruebas correrán cada vez que hagas un push a la rama 'main'
 on:
-  push:
-    branches: [ "main" ]
+push:
+    branches: [ "main", "master" ] # Agregué master por si acaso
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "master" ]
+  workflow_dispatch: # <--- ¡ESTA ES LA LÍNEA MÁGICA! Permite ejecución manual
 
 jobs:
   build-and-test:

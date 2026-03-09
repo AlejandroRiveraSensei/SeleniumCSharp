@@ -21,6 +21,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>.Designer.cs</LastGenOutput>
     </None>
+    <None Update="config.properties">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="testdata\users.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

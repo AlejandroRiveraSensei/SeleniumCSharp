@@ -21,10 +21,10 @@ namespace SeleniumCSharp.utils
                 string binDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
                 // 2. Subimos 3 niveles hacia atrás (..\..\..\) para llegar a la raíz del proyecto
-                string projectRoot = Path.GetFullPath(Path.Combine(binDirectory, @"..\..\..\"));
+                //string projectRoot = Path.GetFullPath(Path.Combine(binDirectory, @"..\..\..\"));
 
                 // 3. Armamos la ruta hacia tu carpeta visible en el Solution Explorer
-                string filePath = Path.Combine(projectRoot, "testdata", "users.json");
+                string filePath = Path.Combine(binDirectory, "testdata", "users.json");
 
                 if (!File.Exists(filePath))
                 {

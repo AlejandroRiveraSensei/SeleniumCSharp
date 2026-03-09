@@ -16,10 +16,10 @@ namespace SeleniumCSharp.utils
             {
                 // Subimos 3 niveles para leer directo desde el Solution Explorer
                 string binDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string projectRoot = Path.GetFullPath(Path.Combine(binDirectory, @"..\..\..\"));
+                //string projectRoot = Path.GetFullPath(Path.Combine(binDirectory, @"..\..\..\"));
 
                 // Asumimos que tienes un archivo config.properties en la raíz de tu proyecto
-                string filePath = Path.Combine(projectRoot, "config.properties");
+                string filePath = Path.Combine(binDirectory, "config.properties");
 
                 if (!File.Exists(filePath))
                 {

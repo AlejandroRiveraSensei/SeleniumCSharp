@@ -20,10 +20,10 @@ namespace SeleniumTests.Utils
                     string binDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
                     // 2. Subimos 3 niveles para llegar a la raíz del proyecto
-                    string projectRoot = Path.GetFullPath(Path.Combine(binDirectory, @"..\..\..\"));
+                    //string projectRoot = Path.GetFullPath(Path.Combine(binDirectory, @"..\..\..\"));
 
                     // 3. Creamos una ruta para una nueva carpeta "Reports" en la raíz
-                    string reportFolder = Path.Combine(projectRoot, "Reports");
+                    string reportFolder = Path.Combine(binDirectory, "Reports");
 
                     // 4. Si la carpeta no existe, la creamos dinámicamente
                     if (!Directory.Exists(reportFolder))

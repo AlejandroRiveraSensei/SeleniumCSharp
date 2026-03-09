@@ -1,53 +1,39 @@
-name: Ejecutar Pruebas E2E (Selenium + C#)
+name: Ejecutar Pruebas E2E (Selenium)
 
-# Las pruebas correrán cada vez que hagas un push a la rama 'main'
 on:
-push:
-    branches: [ "main", "master" ] # Agregué master por si acaso
+  push:
+    branches: [ "main", "master" ]
   pull_request:
     branches: [ "main", "master" ]
-  workflow_dispatch: # <--- ¡ESTA ES LA LÍNEA MÁGICA! Permite ejecución manual
+  workflow_dispatch:
 
 jobs:
   build-and-test:
-    # Usamos Ubuntu porque es mucho más rápido y barato en GitHub Actions que Windows
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
-    # 1. Descarga tu código del repositorio
-    - name: Checkout del código
+    - name: Checkout del codigo
       uses: actions/checkout@v4
 
-    # 2. Instala el SDK de .NET (Ajusta la versión a la que estés usando, ej: 8.0.x)
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '10.0.x' 
+        dotnet-version: '8.0.x'
 
-    # 3. Restaura las dependencias (Paquetes NuGet como Selenium, ExtentReports, etc.)
     - name: Restaurar dependencias
       run: dotnet restore
 
-    # 4. Compila el proyecto
     - name: Compilar proyecto
       run: dotnet build --no-restore
 
-    # 5. Ejecuta las pruebas
     - name: Ejecutar pruebas
-      # Agregamos la variable de entorno CI=true para que Chrome corra en modo Headless
       env:
         CI: true
-      # 'continue-on-error' permite que el workflow siga aunque alguna prueba falle, 
-      # para que el reporte se genere y se suba de todos modos.
       run: dotnet test --no-build --verbosity normal
 
-    # 6. Sube el reporte HTML de ExtentReports como un "Artifact"
     - name: Subir Reporte ExtentReports
       uses: actions/upload-artifact@v4
-      # if: always() asegura que el reporte se suba incluso si las pruebas fallan
-      if: always() 
+      if: always()
       with:
         name: Reporte-Automatizacion
-        # Ajusta esta ruta si el nombre de la carpeta principal de tu proyecto es diferente
-        # El comodín ** buscará la carpeta Reports en cualquier nivel
         path: "**/Reports/ReportePruebas.html"

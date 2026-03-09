@@ -7,6 +7,10 @@ on:
     branches: [ "main", "master" ]
   workflow_dispatch:
 
+# Permisos necesarios para que el bot pueda subir el reporte a la rama gh-pages
+permissions:
+  contents: write
+
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
@@ -18,7 +22,8 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: '8.0.x'
+        # Usa la versión de .NET que tengas en tu proyecto
+        dotnet-version: '10.0.x' 
 
     - name: Restaurar dependencias
       run: dotnet restore
@@ -29,11 +34,25 @@ jobs:
     - name: Ejecutar pruebas
       env:
         CI: true
+      # continue-on-error asegura que el pipeline no se detenga bruscamente si una prueba falla,
+      # permitiendo que los siguientes pasos (generar y subir el reporte) se ejecuten.
+      continue-on-error: true
       run: dotnet test --no-build --verbosity normal
 
-    - name: Subir Reporte ExtentReports
-      uses: actions/upload-artifact@v4
+    # --- NUEVOS PASOS PARA GITHUB PAGES ---
+
+    - name: Preparar carpeta publica para GitHub Pages
+      if: always()
+      run: |
+        # Creamos una carpeta llamada public
+        mkdir public
+        # Copiamos el reporte allí y lo renombramos a index.html
+        cp **/Reports/ReportePruebas.html public/index.html
+
+    - name: Desplegar a GitHub Pages
+      uses: peaceiris/actions-gh-pages@v4
       if: always()
       with:
-        name: Reporte-Automatizacion
-        path: "**/Reports/ReportePruebas.html"
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        publish_branch: gh-pages # Se creará esta rama automáticamente

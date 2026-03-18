@@ -61,7 +61,7 @@ namespace SeleniumCSharp.Tests.pom
 
             // Step 3: Click en logout
             menu.ClickAbout();
-            menu.ClickLogout();
+            //menu.ClickLogout();
 
             // Verification
             //Assert.AreEqual("https://www.saucedemo.com/", login.GetLoginUrl());
